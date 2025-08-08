@@ -9,8 +9,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
-/* Optional: style for main container */
 #root {
   width: 100%;
   max-width: 1200px;
