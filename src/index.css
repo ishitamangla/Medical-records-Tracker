@@ -1,0 +1,35 @@
+
+body {
+  background-color:#b5dee9ff !important; 
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Optional: style for main container */
+#root {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* Smooth animations for any element */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Scrollbar customization (optional) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
