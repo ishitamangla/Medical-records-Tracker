@@ -1,5 +1,5 @@
 import React from 'react'
-import Viewcard from '../../components/Viewcard'
+import Viewcard from '../components/Viewcard'
 
 const Viewrecords = () => {
   return (

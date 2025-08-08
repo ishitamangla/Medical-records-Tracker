@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import Buttons from '../../components/Button';
+import Buttons from '../components/Button';
 import Alert from 'react-bootstrap/Alert';
 const Addrecords = () => {
 

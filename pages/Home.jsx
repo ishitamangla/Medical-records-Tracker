@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row ,Container,Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
-import Homecard from '../../components/Homecard';
+import Homecard from '../components/Homecard';
 
 const Home = () => {
     const navigate =useNavigate();
