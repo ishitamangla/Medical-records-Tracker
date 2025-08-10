@@ -54,6 +54,7 @@ const Addrecords = () => {
   };
 
   return (
+<<<<<<< HEAD:pages/Addrecords.jsx
     <div
       style={{
         maxWidth: "900px",
@@ -75,6 +76,22 @@ const Addrecords = () => {
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
+=======
+    <div style={{maxWidth:'900px', margin:'auto',padding:'20px', backgroundColor:'#87b5c4ff'}}>
+        <div className="d-flex justify-content-center align-items-center mb-3">
+            <h1>Add Medical Record</h1>
+        </div>
+        
+
+      
+      <form onSubmit={onSubmitHandler}>
+        
+        <div className='row mb-3'>
+            <label className='col-sm-4 col-form-label'>Enter Date:</label>
+            <div className='col-sm-8 '>
+                <input className="form-control"type="date" onChange={(e)=>{setDate(e.target.value)}}/>
+            </div>
+>>>>>>> 8707f9e (Move frontend files into frontend folder):frontend/pages/Addrecords.jsx
         </div>
 
         {/* Title */}
