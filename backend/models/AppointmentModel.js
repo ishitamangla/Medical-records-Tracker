@@ -11,11 +11,9 @@ const appointmentSchema = new mongoose.Schema({
   },
   doctor: {
     type: String,
-    required: true,
   },
   hospital: {
     type: String,
-    required: true,
   },
   files: [
     {
@@ -29,7 +27,6 @@ const appointmentSchema = new mongoose.Schema({
   ],
   bodyOrgan: {
     type: String,
-    required: true,
   },
   medicine: {
     type: [String], // In case there are multiple medicines

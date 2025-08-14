@@ -106,7 +106,7 @@ router.post(
       const { date, doctor, hospital, bodyOrgan, medicine, title, notes } =
         req.body;
 
-      if (!date || !doctor || !hospital || !bodyOrgan || !title) {
+      if (!date || !title) {
         return res
           .status(400)
           .json({ success: false, message: "Required fields missing" });
