@@ -5,7 +5,7 @@ import {createBrowserRouter,RouterProvider } from 'react-router-dom'
 import Home from '../pages/Home'
 import Addrecords from '../pages/Addrecords'
 import Viewrecords from '../pages/Viewrecords'
-
+import Norecords from '../pages/Norecords'
 const router = createBrowserRouter(
   [
     {
@@ -31,6 +31,10 @@ const router = createBrowserRouter(
     {
       path : '/viewRecord',
       element:<Viewrecords/>
+    },
+    {
+      path:'/noRecords',
+      element:<Norecords/>
     }
   ]
 )

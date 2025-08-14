@@ -146,11 +146,11 @@ router.get("/fetch-details", authMiddleware, async (req, res) => {
       date: -1,
     });
 
-    if (appointments.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No Appointments Found" });
-    }
+    // if (appointments.length === 0) {
+    //   return res
+    //     .status(404)
+    //     .json({ success: false, message: "No Appointments Found" });
+    // }
 
     res.status(200).json({
       success: true,

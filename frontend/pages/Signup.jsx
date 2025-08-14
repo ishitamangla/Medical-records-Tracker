@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Buttons from "../components/Button";
 import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -38,8 +40,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card shadow p-4" style={{ width: "400px" }}>
+    <div className="container d-flex justify-content-center align-items-center vh-100 "
+    style={{backgroundColor:'#b5dee9ff' }}>
+      <div className="card shadow p-4" style={{ width: "400px" ,backgroundColor:'#759fadff'}}>
         <h3 className="text-center mb-4">Sign up</h3>
         <form onSubmit={handleSignup}>
           <div>
@@ -78,9 +81,8 @@ const Signup = () => {
               }}
             />
           </div>
-          <Button type="submit" variant="success">
-            Submit
-          </Button>
+          <Buttons Bcontent ={"Submit"} 
+          handleClick ={handleSignup}/>
         </form>
       </div>
     </div>
