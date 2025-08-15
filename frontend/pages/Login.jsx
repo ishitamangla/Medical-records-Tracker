@@ -11,13 +11,16 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "Application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "Application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         if (data.token) {
@@ -38,17 +41,19 @@ const Login = () => {
 
   return (
     <div
-      style={{ backgroundColor: '#0a1b25ff',color:"white" }}
+      style={{ backgroundColor: "#0a1b25ff", color: "white" }}
       className="container d-flex justify-content-center align-items-center vh-100 "
     >
       <div
         className=" card shadow p-4"
-        style={{ width: "400px", backgroundColor: '#082332ff' }}
+        style={{ width: "400px", backgroundColor: "#082332ff" }}
       >
-        <h3 className="text-center mb-4" style={{color:"white"}}>Login</h3>
+        <h3 className="text-center mb-4" style={{ color: "white" }}>
+          Login
+        </h3>
         <form onSubmit={onSubmitHandler}>
-          <div style={{color:"white"}}>
-            <label >Email</label>
+          <div style={{ color: "white" }}>
+            <label>Email</label>
             <input
               className="form-control"
               type="email"
@@ -59,7 +64,7 @@ const Login = () => {
               }}
             />
           </div>
-          <div style={{color:"white"}}>
+          <div style={{ color: "white" }}>
             <label>Password</label>
             <input
               className="form-control"
@@ -77,7 +82,7 @@ const Login = () => {
               type="submit"
               variant="primary"
               style={{
-                backgroundColor: '#004e64',
+                backgroundColor: "#004e64",
                 borderRadius: "8px",
                 border: "none",
                 padding: "8px 20px",
@@ -91,7 +96,7 @@ const Login = () => {
             </Button>
           </div>
         </form>
-        <p className="text-center" style={{color:"white"}}>
+        <p className="text-center" style={{ color: "white" }}>
           Don't have an account? <Link to="/Signup"> Sign up</Link>
         </p>
       </div>

@@ -15,8 +15,8 @@ const Addrecords = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!date || !title){
-      alert("Please enter date and title")
+    if (!date || !title) {
+      alert("Please enter date and title");
       return;
     }
     const formData = new FormData();
@@ -33,13 +33,16 @@ const Addrecords = () => {
     });
 
     try {
-      const res = await fetch("http://localhost:3000/api/user/add-details", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/user/add-details`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
       const data = await res.json();
       console.log(data);
       navigate("/home");
@@ -65,12 +68,16 @@ const Addrecords = () => {
         backgroundColor: "#082332ff",
       }}
     >
-      <h2 className="text-center mb-3" style={{color:'white'}}>Add Medical Record</h2>
+      <h2 className="text-center mb-3" style={{ color: "white" }}>
+        Add Medical Record
+      </h2>
 
       <form onSubmit={handleSubmit}>
         {/* Date */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Enter Date:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Enter Date:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -83,7 +90,9 @@ const Addrecords = () => {
 
         {/* Title */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Record Title:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Record Title:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -97,7 +106,9 @@ const Addrecords = () => {
 
         {/* Doctor */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Doctor Name:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Doctor Name:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -111,7 +122,9 @@ const Addrecords = () => {
 
         {/* Hospital */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Hospital Name:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Hospital Name:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -125,7 +138,9 @@ const Addrecords = () => {
 
         {/* Body Organ */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Body Organ:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Body Organ:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -139,7 +154,9 @@ const Addrecords = () => {
 
         {/* Medicine */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Medicines:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Medicines:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -153,7 +170,9 @@ const Addrecords = () => {
 
         {/* Notes */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Notes:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Notes:
+          </label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -167,7 +186,9 @@ const Addrecords = () => {
 
         {/* Files */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Add Files:</label>
+          <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+            Add Files:
+          </label>
           <div className="col-sm-8">
             <input
               multiple
@@ -198,7 +219,7 @@ const Addrecords = () => {
           </div>
         </div>
 
-        <Buttons bcolor='white' Bcontent="Submit" />
+        <Buttons bcolor="white" Bcontent="Submit" />
       </form>
     </div>
   );

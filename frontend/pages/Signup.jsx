@@ -11,13 +11,16 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/user/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
       const data = await res.json();
 
       if (res.ok) {
@@ -40,9 +43,14 @@ const Signup = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100 "
-    style={{backgroundColor:'#0a1b25ff' }}>
-      <div className="card shadow p-4" style={{ width: "400px" ,backgroundColor:'#082332ff',color:'white'}}>
+    <div
+      className="container d-flex justify-content-center align-items-center vh-100 "
+      style={{ backgroundColor: "#0a1b25ff" }}
+    >
+      <div
+        className="card shadow p-4"
+        style={{ width: "400px", backgroundColor: "#082332ff", color: "white" }}
+      >
         <h3 className="text-center mb-4">Sign up</h3>
         <form onSubmit={handleSignup}>
           <div>
@@ -81,8 +89,7 @@ const Signup = () => {
               }}
             />
           </div>
-          <Buttons Bcontent ={"Submit"} 
-          handleClick ={handleSignup}/>
+          <Buttons Bcontent={"Submit"} handleClick={handleSignup} />
         </form>
       </div>
     </div>
