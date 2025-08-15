@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,16 +12,13 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "Application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-type": "Application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
       const data = await res.json();
       if (res.ok) {
         if (data.token) {

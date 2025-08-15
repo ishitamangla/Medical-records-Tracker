@@ -3,6 +3,7 @@ import Buttons from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 const Addrecords = () => {
+  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
   const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -33,16 +34,13 @@ const Addrecords = () => {
     });
 
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/user/add-details`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/user/add-details`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
       const data = await res.json();
       console.log(data);
       navigate("/home");

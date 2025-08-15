@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 const Viewrecords = () => {
+  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
   const [data, setData] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const navigate = useNavigate();
@@ -16,16 +17,13 @@ const Viewrecords = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/user/fetch-details`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await fetch(`${BASE_URL}/api/user/fetch-details`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error status :${response.status}`);

@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Buttons from "../components/Button";
 import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,16 +12,13 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/user/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, password }),
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/user/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
       const data = await res.json();
 
       if (res.ok) {
