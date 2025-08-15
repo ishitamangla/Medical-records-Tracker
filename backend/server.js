@@ -10,7 +10,8 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: "http://localhost:5173", // your Vite frontend URL
+    origin: "https://medical-records-tracker-lv48.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"], // your Vite frontend URL
     credentials: true,
   })
 );
