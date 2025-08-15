@@ -28,7 +28,10 @@ const Viewcard = ({ record }) => {
         <ListGroup.Item>Doctor Name :{doctor || "N/A"}</ListGroup.Item>
         <ListGroup.Item>Hospital Name :{hospital || "N/A"}</ListGroup.Item>
         <ListGroup.Item>Body Organ :{bodyOrgan || "N/A"}</ListGroup.Item>
-        <ListGroup.Item>Medicines:{medicine || "N/A"}</ListGroup.Item>
+        <ListGroup.Item>
+          Medicines:{" "}
+          {medicine && medicine.length > 0 ? medicine.join(", ") : "N/A"}
+        </ListGroup.Item>
         <ListGroup.Item>Note:{notes || "N/A"}</ListGroup.Item>
         <ListGroup.Item>
           Files:
