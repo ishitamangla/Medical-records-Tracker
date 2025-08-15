@@ -38,17 +38,17 @@ const Login = () => {
 
   return (
     <div
-      style={{ backgroundColor: "#b5dee9ff" }}
+      style={{ backgroundColor: '#0a1b25ff',color:"white" }}
       className="container d-flex justify-content-center align-items-center vh-100 "
     >
       <div
         className=" card shadow p-4"
-        style={{ width: "400px", backgroundColor: "#87b5c4ff" }}
+        style={{ width: "400px", backgroundColor: '#082332ff' }}
       >
-        <h3 className="text-center mb-4">Login</h3>
+        <h3 className="text-center mb-4" style={{color:"white"}}>Login</h3>
         <form onSubmit={onSubmitHandler}>
-          <div>
-            <label>Email</label>
+          <div style={{color:"white"}}>
+            <label >Email</label>
             <input
               className="form-control"
               type="email"
@@ -59,7 +59,7 @@ const Login = () => {
               }}
             />
           </div>
-          <div>
+          <div style={{color:"white"}}>
             <label>Password</label>
             <input
               className="form-control"
@@ -77,7 +77,7 @@ const Login = () => {
               type="submit"
               variant="primary"
               style={{
-                backgroundColor: "#004e64",
+                backgroundColor: '#004e64',
                 borderRadius: "8px",
                 border: "none",
                 padding: "8px 20px",
@@ -91,8 +91,8 @@ const Login = () => {
             </Button>
           </div>
         </form>
-        <p className="text-center">
-          Don't have an account ?<Link to="/Signup">Sign up</Link>
+        <p className="text-center" style={{color:"white"}}>
+          Don't have an account? <Link to="/Signup"> Sign up</Link>
         </p>
       </div>
     </div>

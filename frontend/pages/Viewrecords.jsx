@@ -98,9 +98,9 @@ const filterData = useMemo(() => {
   return (
 
     <Container fluid className='px-4 py-3'>
-      <Navbar className='mb-4' variant="dark" bg="dark" expand="lg">
+      <Navbar fixed="top"  className='mb-4' variant="dark" style={{backgroundColor:'#06293d',color:'#b0c4de'}} expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#home">Filter</Navbar.Brand>
+        <Navbar.Brand href="#home" style={{ color: '#ffffff' }}>Filter</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
@@ -109,19 +109,19 @@ const filterData = useMemo(() => {
               title={`Sort By: ${sortBy}`}
               menuVariant="dark"
             >
-              <NavDropdown.Item onClick={()=>{setSortBy("Date")}}>Date</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setSortBy("Doctor")}}>Doctor</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setSortBy("Title")}}>Title</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setSortBy("Hospital")}}>Hospital</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setSortBy("Body Organ")}}>Body Organ</NavDropdown.Item>
+              <NavDropdown.Item  onClick={()=>{setSortBy("Date")}}>Date (most recent)</NavDropdown.Item>
+              <NavDropdown.Item  onClick={()=>{setSortBy("Doctor")}}>Doctor (A–Z)</NavDropdown.Item>
+              <NavDropdown.Item  onClick={()=>{setSortBy("Title")}}>Title (A–Z)</NavDropdown.Item>
+              <NavDropdown.Item  onClick={()=>{setSortBy("Hospital")}}>Hospital (A–Z)</NavDropdown.Item>
+              <NavDropdown.Item  onClick={()=>{setSortBy("Body Organ")}}>Body Organ (A–Z)</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-      <Row className='g-4'>
+      <Row className='g-4' style = {{ alignItems: 'start', marginTop: '70px' }} >
         {filterData.map((data,index)=>(
-          <Col key={index} xs={12} sm={6} md={4} lg={3} className='d-flex justify-content-center mb-4 mx-auto'>
+          <Col key={index} xs={12} sm={6} md={4} lg={3} className=' mb-4'>
             <Viewcard record ={data}/>
           </Col>
         ))}        

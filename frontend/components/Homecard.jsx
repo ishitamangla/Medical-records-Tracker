@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/esm/Button';
 import Card from 'react-bootstrap/Card'
 const Homecard = ({img,cardTitle,cardText,onClickhandler,buttonContent}) => {
   return (
-    <Card className='text-center rounded-3 shadow-sm'style={{ width: '24rem', backgroundColor:'#87b5c4ff'}}>
-          <Card.Img className='card-img-top img-fluid  shadow-sm' variant="top"  style={{ width: '100%', height: '350px', objectPosition:'top',objectFit: 'cover' }}  src={img} />
+    <Card className='text-center rounded-3 shadow-sm'style={{ width: '24rem', backgroundColor:'whitesmoke' ,color:'#004e64'}}>
+          <Card.Img className='card-img-top img-fluid  shadow-sm' variant="top"  style={{ width: '100%', height: '350px', objectPosition:'top',objectFit: 'cover',color:'white'}}  src={img} />
           <Card.Body>
             <Card.Title>{cardTitle}</Card.Title>
             <Card.Text>

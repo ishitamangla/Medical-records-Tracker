@@ -17,7 +17,7 @@ const Home = () => {
        <Container className='align-items-center max-width d-flex flex-column mt-5'>
         <Row >
             <Col>
-            <h1 className="text-center my-4 fw-bold">Medical Tracker Dashboard</h1>
+            <h1 className="text-center my-4 fw-bold" style={{color:'white'}}>Medical Tracker Dashboard</h1>
             </Col>
         </Row>
         <Row display:flex>

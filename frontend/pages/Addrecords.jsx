@@ -62,15 +62,15 @@ const Addrecords = () => {
         maxWidth: "900px",
         margin: "auto",
         padding: "20px",
-        backgroundColor: "#87b5c4ff",
+        backgroundColor: "#082332ff",
       }}
     >
-      <h2 className="text-center mb-3">Add Medical Record</h2>
+      <h2 className="text-center mb-3" style={{color:'white'}}>Add Medical Record</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Date */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Enter Date:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Enter Date:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -83,7 +83,7 @@ const Addrecords = () => {
 
         {/* Title */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Record Title:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Record Title:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -97,7 +97,7 @@ const Addrecords = () => {
 
         {/* Doctor */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Doctor Name:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Doctor Name:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -111,7 +111,7 @@ const Addrecords = () => {
 
         {/* Hospital */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Hospital Name:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Hospital Name:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -125,7 +125,7 @@ const Addrecords = () => {
 
         {/* Body Organ */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Body Organ:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Body Organ:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -139,7 +139,7 @@ const Addrecords = () => {
 
         {/* Medicine */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Medicines:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Medicines:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -153,7 +153,7 @@ const Addrecords = () => {
 
         {/* Notes */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Notes:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Notes:</label>
           <div className="col-sm-8">
             <input
               className="form-control"
@@ -167,7 +167,7 @@ const Addrecords = () => {
 
         {/* Files */}
         <div className="row mb-3">
-          <label className="col-sm-4 col-form-label">Add Files:</label>
+          <label className="col-sm-4 col-form-label" style={{color:'white'}}>Add Files:</label>
           <div className="col-sm-8">
             <input
               multiple
@@ -198,7 +198,7 @@ const Addrecords = () => {
           </div>
         </div>
 
-        <Buttons Bcontent="Submit" />
+        <Buttons bcolor='white' Bcontent="Submit" />
       </form>
     </div>
   );

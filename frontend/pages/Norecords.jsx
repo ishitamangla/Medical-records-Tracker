@@ -12,10 +12,10 @@ const Norecords = () => {
   }
   return (
     <div className='d-flex justify-content-center align-items-center vh-100'>
-    <Card className='text-center rounded-3 shadow-sm p-3'style={{ width: '24rem', backgroundColor:'#87b5c4ff'}}>
-      <Card.Title className=' fw-bold' style={{fontSize:'1.5rem'}}>OOPS! No record found</Card.Title>
+    <Card className='text-center rounded-3 shadow-sm p-3'style={{ width: '24rem', backgroundColor:'#082332ff'}}>
+      <Card.Title className=' fw-bold' style={{fontSize:'1.5rem',color:'white'}}>OOPS! No record found</Card.Title>
       <Card.Body>
-        <p className='mb-2' style={{fontSize:'1.2rem',color:'#333'}}>kindly add data first</p>
+        <p className='mb-2' style={{fontSize:'1.2rem',color:'#f4efefff'}}>kindly add data first</p>
         <Buttons Bcontent={"add record"}
         handleClick ={onAddHandler}/>
       </Card.Body>
