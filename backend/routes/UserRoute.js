@@ -1,167 +1,97 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const router = new express.Router();
-const User = require("../models/userModel");
-const Appointment = require("../models/AppointmentModel");
 const authMiddleware = require("../middleware/auth");
-router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
-    return res
-      .status(400)
-      .json({ success: false, message: "All fields are mandatory" });
-  }
-  const emailExist = await User.findOne({ email: email });
-  if (emailExist) {
-    return res
-      .status(400)
-      .json({ success: false, message: "User already exist" });
-  }
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await User.create({
-    name: name,
-    email: email,
-    password: hashedPassword,
-  });
-  if (!user) {
-    return res
-      .status(500)
-      .json({ success: false, message: "User not created" });
-  }
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
-  return res.status(201).json({
-    success: true,
-    message: "User created",
-    token,
-    userDetails: {
-      name: name,
-      email: email,
-      password: hashedPassword,
-    },
-  });
+const UserController = require("../controller/user.controller");
+const upload = require("../middleware/upload");
+const AppointmentController = require("../controller/appointment.contoller");
+
+/* POST / */
+router.post("/", (req, res) => {
+  console.log("User Route");
+  res.send("Hello from User Route");
 });
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+
+/*POST /register */
+
+router.post("/register", async (req, res) => {
   try {
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are mandatory" });
-    }
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email or Password is Incorrect" });
-    }
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email or Password is Incorrect" });
-    }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    return res.status(200).json({
-      success: true,
-      message: "Login Successfull",
-      token,
-      userDetails: {
-        name: user.name,
-        email: user.email,
-      },
-    });
+    await UserController.registerUser(req, res);
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 });
-const multer = require("multer");
-const path = require("path");
 
-// Multer storage setup
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // saves inside /uploads
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // unique name
-  },
+
+/*POST /login */
+
+router.post("/login", async (req, res) => {
+  try {
+    await UserController.loginUser(req, res);
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 });
 
-const upload = multer({ storage });
 
-router.post(
-  "/add-details",
-  authMiddleware,
-  upload.array("files"), // matches frontend FormData key
+/*POST /add-details */
+
+//upload.array is multer middleware 
+
+router.post("/add-details",authMiddleware,
+  async (req, res,next) => {
+    upload.array("files")(req, res, (err) => {
+      if (err) {
+        console.log("upload error :" ,err);
+        console.log(`Error uploading files: ${err.message}`);
+        return res.status(400).json({ success: false, message: err.message });
+      }
+      next();
+    });
+  },
   async (req, res) => {
     try {
-      console.log(req.body);
-      console.log(req.files);
-      const { date, doctor, hospital, bodyOrgan, medicine, title, notes } =
-        req.body;
-
-      if (!date || !title) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Required fields missing" });
-      }
-
-      const fileData = req.files.map((file) => ({
-        filename: file.filename,
-        fileUrl: `${req.protocol}://${req.get("host")}/uploads/${
-          file.filename
-        }`,
-      }));
-
-      const appointment = await Appointment.create({
-        user: req.user.id,
-        date,
-        doctor,
-        hospital,
-        files: fileData,
-        bodyOrgan,
-        medicine: medicine ? medicine.split(",") : [],
-        title,
-        notes: notes || "",
-      });
-
-      res
-        .status(201)
-        .json({ success: true, message: "Appointment added", appointment });
+      await AppointmentController.addAppointment(req, res);
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: error.message });
     }
   }
 );
+
+/*GET /fetch-details */
+
 router.get("/fetch-details", authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const appointments = await Appointment.find({ user: userId }).sort({
-      date: -1,
-    });
-
-    // if (appointments.length === 0) {
-    //   return res
-    //     .status(404)
-    //     .json({ success: false, message: "No Appointments Found" });
-    // }
-
-    res.status(200).json({
-      success: true,
-      message: "Appointment Details",
-      appointments,
-    });
+    await AppointmentController.fetchAppointments(req, res);
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+
+/*PUT /edit-details/:id */
+
+router.put("/edit-details/:id", authMiddleware, (req, res, next) => {
+    upload.array("files")(req, res, (err) => {
+      if (err) return res.status(400).json({ success: false, message: err.message });
+      next();
     });
+  },
+  async (req, res) => {
+  try {
+    await AppointmentController.editAppointment(req, res);
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+
+/*DELETE /delete-details/:id */
+
+router.delete("/delete-details/:id", authMiddleware, async (req, res) => { 
+  try{
+    await AppointmentController.deleteAppointment(req, res);
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
   }
 });
 
