@@ -2,8 +2,8 @@ import React ,{useEffect,useState} from 'react'
 import { Row ,Container,Col,Spinner} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import Homecard from '../components/Homecard';
-import addImg from '../assets/addrecord.png';
-import viewImg from '../assets/viewrecord.png';
+import addImg from '../src/assets/addrecord.png';
+import viewImg from '../src/assets/viewrecord.png';
 
 const Home = () => {
     const navigate =useNavigate();
