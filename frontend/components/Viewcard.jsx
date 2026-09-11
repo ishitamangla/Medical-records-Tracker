@@ -1,7 +1,9 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { ListGroup } from "react-bootstrap";
-const Viewcard = ({ record }) => {
+import Button from 'react-bootstrap/esm/Button';
+
+const Viewcard = ({ record,onDelete ,onEdit}) => {
   const { title, date, doctor, hospital, bodyOrgan, medicine, notes, files } =
     record;
   const hasText = (str) => typeof str === "string" && str.trim().length > 0;
@@ -21,8 +23,20 @@ const Viewcard = ({ record }) => {
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
     >
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <div>{new Date(date).toISOString().split("T")[0]}</div>
+        <div>
+          <Card.Title>{title}</Card.Title>
+          <div>{new Date(date).toISOString().split("T")[0]}</div>
+        </div>
+        <Button variant="outline-primary" size="sm" onClick={onEdit}>
+          Edit
+        </Button>
+        <Button
+          variant="outline-danger"
+          size="sm"
+          onClick={onDelete}
+        >
+          Delete
+        </Button>
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>Doctor Name :{doctor || "N/A"}</ListGroup.Item>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Row ,Container,Col} from 'react-bootstrap'
+import React ,{useEffect,useState} from 'react'
+import { Row ,Container,Col,Spinner} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import Homecard from '../components/Homecard';
 
@@ -13,14 +13,15 @@ const Home = () => {
     }
     const addImg = '../src/assets/addrecord.png'
     const viewImg = '../src/assets/viewrecord.png'
-  return (
+
+    return (
        <Container className='align-items-center max-width d-flex flex-column mt-5'>
         <Row >
             <Col>
             <h1 className="text-center my-4 fw-bold" style={{color:'white'}}>Medical Tracker Dashboard</h1>
             </Col>
         </Row>
-        <Row display:flex>
+        <Row style = {{display:'flex'}}>
             <Col>
                 <Homecard 
                 img={addImg}

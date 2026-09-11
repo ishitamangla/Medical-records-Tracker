@@ -33,6 +33,13 @@ router.post("/login", async (req, res) => {
 });
 
 
+/*GET /verify */
+
+router.get("/verify",authMiddleware,(req,res)=>{
+  res.status(200).json({message : "Authorized",user:req.user});
+})
+
+
 /*POST /add-details */
 
 //upload.array is multer middleware 

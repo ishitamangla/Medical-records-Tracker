@@ -1,4 +1,3 @@
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const user = require("../models/userModel");
@@ -38,13 +37,14 @@ async function registerUser(req, res){
     });
 
     res.cookie("token", token, {
+        secure:false,
+        httpOnly: true, //js cannot read cookie directly by document.cookie now
         maxAge: 3 * 24 * 60 * 60 * 1000
     });
 
     return res.status(201).json({
         success: true,
         message: "User created",
-        token,
         userDetails: {
         name: name,
       email: email,
@@ -81,13 +81,14 @@ async function loginUser(req, res) {
         });
 
         res.cookie("token", token, {
+            secure:false,
+            httpOnly:true,
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
     
         return res.status(200).json({
             success: true,
             message: "Login Successfull",
-            token,
             userDetails: {
                 name: User.name,
                 email: User.email,

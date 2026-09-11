@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Buttons from "../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams, useLocation} from "react-router-dom";
 
 const Addrecords = () => {
-  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
+  const BASE_URL = "http://localhost:3000";
   const navigate = useNavigate();
+  const {id} = useParams();
+  const location = useLocation();
+  const existingRecord = location.state?.record;
+  const isEditMode = Boolean(id);
+
   const [date, setDate] = useState("");
   const [doctor, setDoctor] = useState("");
   const [hospital, setHospital] = useState("");
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([]); //new uploaded files
+  const [existingFiles,setExistingFiles] = useState([]); //older files already present
   const [bodyOrgan, setBodyOrgan] = useState("");
   const [medicine, setMedicine] = useState("");
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
+
+  //if edit mode we will prefill the fields
+  useEffect(() =>{
+    if(isEditMode && existingRecord){
+      setDate(existingRecord.date ? existingRecord.date.split("T")[0] : "");
+      setDoctor(existingRecord.doctor || "");
+      setHospital(existingRecord.hospital || "");
+      setBodyOrgan(existingRecord.bodyOrgan || "");
+      setMedicine(
+        Array.isArray(existingRecord.medicine)
+          ? existingRecord.medicine.join(",")
+          : existingRecord.medicine || ""
+      );
+      setTitle(existingRecord.title || "");
+      setNotes(existingRecord.notes || "");
+      setExistingFiles(existingRecord.files || []);
+    }
+  },[isEditMode, existingRecord]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,21 +54,30 @@ const Addrecords = () => {
     formData.append("title", title);
     formData.append("notes", notes);
 
+    if(isEditMode){
+        formData.append("files", JSON.stringify(existingFiles));
+    }
+
     files.forEach((file) => {
       formData.append("files", file);
     });
 
     try {
-      const res = await fetch(`${BASE_URL}/api/user/add-details`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+      const url = isEditMode? `${BASE_URL}/edit-details/${id}`:`${BASE_URL}/add-details`;
+      const res = await fetch(url, {
+        method:isEditMode ? "PUT" : "POST",
+        credentials:"include",
         body: formData,
       });
+
       const data = await res.json();
-      console.log(data);
-      navigate("/home");
+      if(res.ok){
+        alert(isEditMode?"Record Updated" : "Record Added");
+        navigate("/viewRecord");
+      }
+      else{
+        alert(data.message || "Something went wrong");
+      }
     } catch (err) {
       console.error(err);
     }
@@ -51,6 +85,10 @@ const Addrecords = () => {
 
   const removeFile = (index) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removeExistingFile = (index) => {
+    setExistingFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const fileChangeHandler = (e) => {
@@ -67,7 +105,7 @@ const Addrecords = () => {
       }}
     >
       <h2 className="text-center mb-3" style={{ color: "white" }}>
-        Add Medical Record
+        {isEditMode ? "Edit Medical Record" : "Add Medical Record"}
       </h2>
 
       <form onSubmit={handleSubmit}>
@@ -182,10 +220,41 @@ const Addrecords = () => {
           </div>
         </div>
 
+        {/* Existing Files (edit mode only) */}
+        {isEditMode && existingFiles.length > 0 && (
+          <div className="row mb-3">
+            <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
+              Existing Files:
+            </label>
+            <div className="col-sm-8">
+              <ul className="list-group">
+                {existingFiles.map((file, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <a href={file.fileUrl} target="_blank" rel="noopener noreferrer">
+                      {file.filename}
+                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => removeExistingFile(index)}
+                    >
+                      &times;
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+
         {/* Files */}
         <div className="row mb-3">
           <label className="col-sm-4 col-form-label" style={{ color: "white" }}>
-            Add Files:
+            {isEditMode ? "Add More Files:" : "Add Files:"}
           </label>
           <div className="col-sm-8">
             <input
@@ -217,7 +286,7 @@ const Addrecords = () => {
           </div>
         </div>
 
-        <Buttons bcolor="white" Bcontent="Submit" />
+        <Buttons type ="submit" bcolor="white" Bcontent={isEditMode ? "Update" : "Submit" }/>
       </form>
     </div>
   );

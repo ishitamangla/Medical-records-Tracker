@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 const Viewrecords = () => {
-  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
+  const BASE_URL = "http://localhost:3000";
   const [data, setData] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const navigate = useNavigate();
@@ -17,12 +17,9 @@ const Viewrecords = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/user/fetch-details`, {
+        const response = await fetch(`${BASE_URL}/fetch-details`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          credentials:"include",
         });
 
         if (!response.ok) {
@@ -42,6 +39,41 @@ const Viewrecords = () => {
 
     fetchData();
   }, [navigate]);
+
+
+  const handleDelete = async(id) =>{
+    if(!window.confirm("Are you sure you want to delete this record?")) return;
+
+    try{
+      const res = await fetch(`${BASE_URL}/delete-details/${id}`,{
+        method: "DELETE",
+        credentials : "include",
+      });
+      const result = await res.json();
+
+      if(res.ok){
+        setData((prev) => {
+            const updated = prev.filter((record) => record._id !== id);
+            if(updated.length === 0){
+              navigate("/noRecords");
+            }
+            return updated;
+        });
+      }
+      else{
+        alert(result.message || "Failed to delete");
+      }
+  }
+  catch(error){
+    console.log(error.messgae);
+    alert("something went wrong");
+  }
+};
+
+
+  const handleEdit = (record) =>{
+    navigate(`/editrecord/${record._id}`, { state: { record } });
+  };
 
   const filterData = useMemo(() => {
     let temp = [...data];
@@ -154,7 +186,9 @@ const Viewrecords = () => {
       <Row className="g-4" style={{ alignItems: "start", marginTop: "70px" }}>
         {filterData.map((data, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3} className=" mb-4">
-            <Viewcard record={data} />
+            <Viewcard record={data} 
+            onDelete={() => handleDelete(data._id)}
+            onEdit = {() => handleEdit(data)}/>
           </Col>
         ))}
       </Row>

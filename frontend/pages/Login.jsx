@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const BASE_URL = "https://medical-records-tracker-1.onrender.com";
+  const BASE_URL = "http://localhost:3000";
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,28 +12,26 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${BASE_URL}/api/user/login`, {
+      const res = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: {
-          "Content-type": "Application/json",
+          "Content-type": "application/json",
         },
+        credentials: "include", //send recieve cookies from backend to frontend
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (res.ok) {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-        }
         alert("Login successful");
         setEmail("");
         setPassword("");
-        navigate("./home");
+        navigate("/home");
       } else {
         alert(data.message || "Login Failed");
       }
     } catch (error) {
       console.log(`Error logging in : ${error.message}`);
-      alert("Something went wrong plz try again");
+      alert("Something went wrong please try again");
     }
   };
 
@@ -95,7 +93,7 @@ const Login = () => {
           </div>
         </form>
         <p className="text-center" style={{ color: "white" }}>
-          Don't have an account? <Link to="/Signup"> Sign up</Link>
+          Don't have an account? <Link to="/signup"> Sign up</Link>
         </p>
       </div>
     </div>
