@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Buttons from "../components/Button";
 import { useNavigate } from "react-router-dom";
 const Signup = () => {
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

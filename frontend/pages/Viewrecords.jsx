@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 const Viewrecords = () => {
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
   const [data, setData] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const navigate = useNavigate();
