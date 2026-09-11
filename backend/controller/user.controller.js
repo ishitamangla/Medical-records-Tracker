@@ -34,12 +34,11 @@ async function registerUser(req, res){
     }
     const token = jwt.sign({ id: User._id }, process.env.JWT_SECRET, {
         expiresIn: "3d",
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
     res.cookie("token", token, {
-        secure:false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         httpOnly: true, //js cannot read cookie directly by document.cookie now
         maxAge: 3 * 24 * 60 * 60 * 1000
     });
@@ -80,12 +79,11 @@ async function loginUser(req, res) {
 
         const token = jwt.sign({ id: User._id }, process.env.JWT_SECRET, {
         expiresIn: "3d",
-          secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         });
 
         res.cookie("token", token, {
-            secure:false,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             httpOnly:true,
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
