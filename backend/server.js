@@ -13,8 +13,10 @@ const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT || 3000;
 const allowedOrigins = [
-  "http://localhost:5173"
-];
+  "http://localhost:5173",
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(
   cors({
     origin:allowedOrigins,
@@ -32,5 +34,5 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", userRouter);
 app.listen(port, () => {
-  console.log("Server is running at port 3000");
+  console.log(`Server is running ${port} `);
 });
