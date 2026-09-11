@@ -2,6 +2,8 @@ import React ,{useEffect,useState} from 'react'
 import { Row ,Container,Col,Spinner} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import Homecard from '../components/Homecard';
+import addImg from '../assets/addrecord.png';
+import viewImg from '../assets/viewrecord.png';
 
 const Home = () => {
     const navigate =useNavigate();
@@ -11,9 +13,7 @@ const Home = () => {
     const viewRecordHandler =()=>{
         navigate('/viewRecord')
     }
-    import addImg from '../assets/addrecord.png';
-    import viewImg from '../assets/viewrecord.png';
-
+    
     return (
        <Container className='align-items-center max-width d-flex flex-column mt-5'>
         <Row >
