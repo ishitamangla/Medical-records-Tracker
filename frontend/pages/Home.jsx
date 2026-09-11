@@ -11,8 +11,8 @@ const Home = () => {
     const viewRecordHandler =()=>{
         navigate('/viewRecord')
     }
-    const addImg = '../src/assets/addrecord.png'
-    const viewImg = '../src/assets/viewrecord.png'
+    import addImg from '../assets/addrecord.png';
+    import viewImg from '../assets/viewrecord.png';
 
     return (
        <Container className='align-items-center max-width d-flex flex-column mt-5'>
